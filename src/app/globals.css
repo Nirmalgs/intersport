@@ -100,3 +100,8 @@ button:focus {
   fill: #164196;
   stroke: #164196;
 }
+
+ul {
+  list-style: disc;
+  margin-left: 1em;
+}

@@ -48,7 +48,7 @@ const ProductDetail = (props) => {
     { id: 'tab3', label: 'Variant information', content: catdataSSR?.data?.composition },
     { id: 'tab4', label: 'Related Assets', content: catdataSSR?.data?.imageGallery },
   ];
-  const [activeTab, setActiveTab] = useState(tabs[0].id);
+  const [activeTab, setActiveTab] = useState(tabs[3].id);
 
   const getMediaType = (media) => {
     if (!media) return 'image'; // Default to image if no media
@@ -59,21 +59,23 @@ const ProductDetail = (props) => {
     const { progress } = useProgress();
     return <ProgressBar progress={progress} />;
   }
-
   return (
     <>
       <div className="py-[60px] flex">
         <div className="w-[45%]">
           <div className="h-[500px] bg-white">
             {selectedMedia && getMediaType(selectedMedia) === 'video' ? (
+              <div>
               <video
                 src={selectedMedia}
                 alt="Selected video"
-                className="w-full h-full object-contain rounded"
+                className="w-full h-full rounded"
                 muted
                 playsInline
                 loop
+                autoPlay
               />
+              </div>
             ) : show360 ? (
               <Suspense fallback={<Loader />}>
                 <Canvas
@@ -270,7 +272,9 @@ const ProductDetail = (props) => {
                 </button>
               </>
             ) : (
-              <p className="text-[14px] text-[#666666]">{tab.content}</p>
+              <p className="text-[14px] text-[#666666]">
+                <span dangerouslySetInnerHTML={{ __html: tab.content }}></span>
+              </p>
             )}
           </div>
         ))}

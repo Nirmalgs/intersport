@@ -111,7 +111,8 @@ const ProductList = () => {
                     <Link href={`/productlist/${product?.productId}`}>
                       <h4 className="h-[48px] product-name text-[15px] text-gray-800 font-semibold">{product.name}</h4>
                     </Link>
-                    <p className="font-semibold text-[14px]">{product.description}</p>
+                    <p className="font-semibold text-[14px]">
+                      <span dangerouslySetInnerHTML={{__html:product.description}}></span></p>
                   </div>
                 </div>
               </li>
