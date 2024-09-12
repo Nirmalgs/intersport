@@ -96,6 +96,7 @@ const ProductDetail = (props) => {
                 alt={catdataSSR?.data?.name}
                 width={600}
                 height={500}
+                quality={100}
                 className="w-full h-full object-contain"
               />
             )}
