@@ -94,8 +94,8 @@ const ProductDetail = (props) => {
               <Image
                 src={selectedMedia || catdataSSR?.data?.thumbnail}
                 alt={catdataSSR?.data?.name}
-                width={100}
-                height={100}
+                width={600}
+                height={500}
                 className="w-full h-full object-contain"
               />
             )}
