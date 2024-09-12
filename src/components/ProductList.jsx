@@ -75,7 +75,7 @@ const ProductList = () => {
           </select>
         </div>
       </div>
-      <ul className="flex flex-wrap gap-[25px] productlist-container">
+      <ul className="flex flex-wrap gap-[15px] productlist-container">
         {productListItem?.data?.items.map((product) => (
           <>
             {viewMode === 'grid' && (
