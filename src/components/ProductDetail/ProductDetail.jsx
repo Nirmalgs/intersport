@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProgressBar from '@/components/ProgressBar';
 import ModelRender from '../ModelRender';
 import { colors } from '@/utils/colors';
+import Promotions from '../Promotions';
 
 const ProductDetail = (props) => {
   const { catdataSSR, random } = props;
@@ -59,6 +60,7 @@ const ProductDetail = (props) => {
     const { progress } = useProgress();
     return <ProgressBar progress={progress} />;
   }
+  console.log(tabs);
   return (
     <>
       <div className="py-[60px] flex">
@@ -66,15 +68,15 @@ const ProductDetail = (props) => {
           <div className="h-[500px] bg-white">
             {selectedMedia && getMediaType(selectedMedia) === 'video' ? (
               <div>
-              <video
-                src={selectedMedia}
-                alt="Selected video"
-                className="w-full h-full rounded"
-                muted
-                playsInline
-                loop
-                autoPlay
-              />
+                <video
+                  src={selectedMedia}
+                  alt="Selected video"
+                  className="w-full h-full rounded"
+                  muted
+                  playsInline
+                  loop
+                  autoPlay
+                />
               </div>
             ) : show360 ? (
               <Suspense fallback={<Loader />}>
@@ -98,7 +100,7 @@ const ProductDetail = (props) => {
               />
             )}
           </div>
-          <div className="flex overflow-x-auto mt-[20px]">
+          <div className="flex flex-wrap overflow-x-auto mt-[20px]">
             {catdataSSR?.data?.imageGallery?.map((img, index) => (
               <button
                 key={index}
@@ -106,7 +108,7 @@ const ProductDetail = (props) => {
                   setShow360(false);
                   setSelectedMedia(img);
                 }}
-                className={`flex-shrink-0 w-20 h-20 mr-2 rounded border border-primaryColor hover:border-primaryColor`}
+                className={`flex-shrink-0 mb-2 w-20 h-20 mr-2 rounded border border-primaryColor hover:border-primaryColor`}
               >
                 <img src={img} alt={`Thumbnail ${index}`} className="w-full h-full object-contain rounded" />
               </button>
@@ -139,21 +141,58 @@ const ProductDetail = (props) => {
         </div>
         <div className="w-[55%] ml-[100px] px-[30px] py-[20px] bg-white text-[#333333]">
           <h1 className="text-[28px] font-semibold mb-[10px]">{catdataSSR?.data?.name}</h1>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <p className="text-[16px] text-[#666666] mr-[10px] line-through">€ {catdataSSR?.data?.mrp}</p>
             <p className="text-[18px] font-bold">€ {catdataSSR?.data?.mrp}</p>
+          </div> */}
+          <div className="flex space-x-2">
+            <Promotions
+              price={3134}
+              originalPrice={3999}
+              discount={21.63}
+              currency="€"
+              buttonColor="bg-blue-500"
+              textColor="black"
+              backgroundColor="bg-yellow-50"
+              summerSale={true}
+            />
+            <Promotions
+              price={2800}
+              originalPrice={3999}
+              discount={21.63}
+              currency="€"
+              buttonColor="bg-blue-500"
+              textColor="black"
+              backgroundColor="bg-yellow-50"
+            />
           </div>
-          <div className="visitors-user flex items-center text-[14px] my-[15px] ">
-            <EyeIcon classNameSvg="mr-[10px] text-[#666666] " />
-            22 <span className="ml-[5px]">people are viewing this right now</span>
-          </div>
-          <div className="visitors-user flex items-center text-[14px] my-[15px]">
+          {/* <div className="visitors-user flex items-center text-[14px] my-[15px]">
             <StarIcon classNameSvg="mr-[10px] hover:text-red" />
-          </div>
+          </div> */}
           <p className="product-sku my-[15px] text-[16px]">
             <span>SKU:</span> {catdataSSR?.data?.productId}
           </p>
-
+          <div className="my-[20px] text-[16px]">
+            <p className="text-[#33333]">Color Variant:</p>
+            <div className="flex ">
+              {colors[sections[random]].map((color) => {
+                return (
+                  <span
+                    className={`w-[35px] h-[35px] block my-[10px] mx-[5px] cursor-pointer`}
+                    style={{ backgroundColor: color }}
+                    onClick={() => {
+                      setBodyColor(color);
+                    }}
+                  ></span>
+                );
+              })}
+            </div>
+          </div>
+          <div className="my-[20px] text-[16px]">
+            <p className="text-[#33333]">
+              Categories: <span className="text-[14px] text-[#66666]">{catdataSSR?.data?.productType}</span>
+            </p>
+          </div>
           <div className="">
             <p className="flex items-center gap-[7px]">
               <span className="availability">Availability : </span>
@@ -197,35 +236,18 @@ const ProductDetail = (props) => {
               </div> */}
               <div>
                 <button
+                  className="w-[200px] h-[50px] flex justify-center items-center btn-hover rounded bg-primaryColor text-[14px] text-[#fff] py-[5px] px-[10px] border border-primaryColor"
+                  onClick={addToCart}
+                >
+                  Add to List
+                </button>
+                {/* <button
                   className="w-[300px] h-[50px] flex justify-center items-center btn-hover rounded bg-primaryColor text-[14px] text-[#fff] py-[5px] px-[10px] border border-primaryColor"
                   onClick={addToCart}
                 >
                   Add to Wishlist
-                </button>
+                </button> */}
               </div>
-            </div>
-          </div>
-
-          <div className="my-[20px] text-[16px]">
-            <p className="text-[#33333]">
-              Categories: <span className="text-[14px] text-[#66666]">{catdataSSR?.data?.productType}</span>
-            </p>
-          </div>
-
-          <div className="my-[20px] text-[16px]">
-            <p className="text-[#33333]">Color Variant:</p>
-            <div className="flex ">
-              {colors[sections[random]].map((color) => {
-                return (
-                  <span
-                    className={`w-[35px] h-[35px] block my-[10px] mx-[5px] cursor-pointer`}
-                    style={{ backgroundColor: color }}
-                    onClick={() => {
-                      setBodyColor(color);
-                    }}
-                  ></span>
-                );
-              })}
             </div>
           </div>
         </div>
@@ -263,6 +285,38 @@ const ProductDetail = (props) => {
                       />
                     </div>
                   ))}
+                  <div className="rounded border border-[#ccc] relative w-[220px] text-center pt-16">
+                    <div className="absolute top-[4px] left-[4px] cursor-pointer">
+                      <input type="checkbox" />
+                    </div>
+                    <video
+                      src={catdataSSR?.data?.videoUrl}
+                      alt="video"
+                      className="w-full h-full object-contain rounded"
+                      muted
+                      playsInline
+                      loop
+                      autoPlay
+                    />
+                  </div>
+                  <div className="rounded border border-[#ccc] relative w-[220px] text-center pt-16">
+                    <div className="absolute top-[4px] left-[4px] cursor-pointer">
+                      <input type="checkbox" />
+                    </div>
+                    <button
+                      className={`flex-shrink-0 w-20 h-20 mr-2`}
+                      onClick={() => {
+                        setShow360(true);
+                      }}
+                    >
+                      <img
+                        src="/images/image-360.png"
+                        alt="360 image"
+                        className="w-full h-full object-contain rounded"
+                      />
+                    </button>
+                  </div>
+                  
                 </div>
                 <button
                   className="btn-hover rounded text-[14px] text-primaryColor px-[15px] py-[5px] border border-primaryColor mt-[20px] mx-auto block"
@@ -273,7 +327,7 @@ const ProductDetail = (props) => {
               </>
             ) : (
               <p className="text-[14px] text-[#666666]">
-                <span dangerouslySetInnerHTML={{ __html: tab.content }}></span>
+                <span className="description" dangerouslySetInnerHTML={{ __html: tab.content }}></span>
               </p>
             )}
           </div>

@@ -1,11 +1,29 @@
-'use client'
-import { faListCheck, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+'use client';
+import { faListCheck, faSignOutAlt, faUser, faUserAlt, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef(null);
+    const buttonRef = useRef(null);
+
+    const toggleDropdown = () => setIsOpen(!isOpen);
+
+    // Close the dropdown when clicking outside
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+                buttonRef.current && !buttonRef.current.contains(event.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
   return (
     <header className="py-[15px]  shadow-xl">
       <div className="xl:container mx-auto flex justify-between items-center">
@@ -55,13 +73,53 @@ const Header = () => {
               />
             </svg>
           </div>
+          <div className="content-center ml-[20px] relative">
+            <FontAwesomeIcon onClick={toggleDropdown} ref={buttonRef} icon={faUserCircle} className="text-primaryColor text-2xl" />
+            {isOpen && (
+            <div
+              id="dropdown-menu"
+              ref={dropdownRef}
+              class="dropdown-menu absolute z-10 right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-lg"
+            >
+              <ul class="py-1">
+                <li>
+                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    My Lists
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Saved filters
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Saved Searches
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Intersport recommended list
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    Downloaded list
+                  </a>
+                </li>
+              </ul>
+            </div>)}
+          </div>
           <div className="content-center ml-[20px]">
             <FontAwesomeIcon icon={faListCheck} className="text-primaryColor text-2xl" />
           </div>
-          <div className="content-center ml-[20px] " onClick={() => {
-            document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-            window.location.href = '/login';
-          }}>
+          <div
+            className="content-center ml-[20px]"
+            onClick={() => {
+              document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+              window.location.href = '/login';
+            }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} className="text-primaryColor text-2xl" />
           </div>
         </div>

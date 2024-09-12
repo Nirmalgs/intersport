@@ -5,8 +5,9 @@ import Image from 'next/image';
 import { useAtom } from 'jotai';
 import { listAtom } from '@/atoms/list';
 import { wishlistAtom } from '@/atoms/wishlist';
+import Promotions from './Promotions';
 
-const ProductCard = ({ product, handleProductClick }) => {
+const ProductCard = ({ product, handleProductClick, isGrid }) => {
   const [wishlist, setWishlist] = useAtom(wishlistAtom);
   const [list, setList] = useAtom(listAtom);
   const [currentImage, setCurrentImage] = useState(product.thumbnail);
@@ -68,7 +69,7 @@ const ProductCard = ({ product, handleProductClick }) => {
     };
   }, [activeProduct]);
 
-  return (
+  return isGrid ? (
     <li key={product.name} className="product-list-item">
       <div
         className="border-2 border-zinc-50 rounded-xl bg-white shadow-lg w-[298px] relative transition-all duration-500"
@@ -76,11 +77,7 @@ const ProductCard = ({ product, handleProductClick }) => {
         onMouseLeave={() => setActiveProduct(false)}
       >
         <div className="absolute top-3 left-3 z-10 cursor-pointer" onClick={selectList}>
-          <input
-            checked={!!activeListId}
-            type="checkbox"
-            className="bg-primaryColor w-5 h-5 text-primaryColor"
-          />
+          <input checked={!!activeListId} type="checkbox" className="bg-primaryColor w-5 h-5 text-primaryColor" />
         </div>
         <span
           onClick={() => handleProductClick(product)}
@@ -107,6 +104,59 @@ const ProductCard = ({ product, handleProductClick }) => {
             <h4 className="h-[48px] product-name text-[15px] text-gray-700 font-semibold">{product.name}</h4>
           </Link>
           <p className="font-semibold text-[14px]">{product.price}</p>
+        </div>
+      </div>
+    </li>
+  ) : (
+    <li key={product.name} className="product-list-item bg-white w-full">
+      <div className="border-2 border-zinc-50 rounded relative flex">
+        <div className="absolute top-3 left-3 z-10 cursor-pointer" onClick={selectList}>
+          <input checked={!!activeListId} type="checkbox" className="bg-primaryColor w-5 h-5 text-primaryColor" />
+        </div>
+        <span
+          onClick={() => handleProductClick(product)}
+          className={`absolute top-[10px] right-[6px] z-[9] inline-block w-[35px] h-[35px] favorite-icon cursor-pointer
+                    ${wishlistId ? 'active' : ''}`}
+        >
+          <FavoriteIcon />
+        </span>
+        <div
+          className="product-card p-[20px] relative w-[30%]"
+          onMouseEnter={() => setActiveProduct(true)}
+          onMouseLeave={() => setActiveProduct(false)}
+        >
+          <Link href={`/productlist/${product?.productId}`}>
+            <Image src={currentImage} alt={product.name} width={225} height={225} className="w-full h-[220px]" />
+          </Link>
+        </div>
+        <div className="p-[20px] w-[70%]">
+          <Link href={`/productlist/${product?.productId}`}>
+            <h4 className="h-[48px] product-name text-[15px] text-gray-800 font-semibold">{product.name}</h4>
+          </Link>
+          <p className="font-semibold text-[14px] ml-4">
+            <span className="description" dangerouslySetInnerHTML={{ __html: product.description }}></span>
+          </p>
+          <div className="flex flex-cols-2 gap-2  items-center mt-[10px]">
+            <Promotions
+              price={3134}
+              originalPrice={3999}
+              discount={21.63}
+              currency="€"
+              buttonColor="bg-blue-500"
+              textColor="black"
+              backgroundColor="bg-yellow-50"
+              summerSale={true}
+            />
+            <Promotions
+              price={2800}
+              originalPrice={3999}
+              discount={21.63}
+              currency="€"
+              buttonColor="bg-blue-500"
+              textColor="black"
+              backgroundColor="bg-yellow-50"
+            />
+          </div>
         </div>
       </div>
     </li>

@@ -37,6 +37,9 @@ const RecentlyViewedProducts = () => {
         {/* Card 3 */}
         <div className="flex-shrink-0  bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300">
           <div className="p-4">
+            <div className='flex justify-center'>
+              <img width={100} height={100} src="https://c8.alamy.com/comp/GK6YJM/clock-and-arrow-icon-GK6YJM.jpg" />
+            </div>
             <div className="text-[#1f2533] font-bold text-[28px] text-center">Update since you downloaded last time</div>
           </div>
         </div>
@@ -47,23 +50,25 @@ const RecentlyViewedProducts = () => {
     <div className="flex justify-center p-6">
       <div className="flex space-x-6 overflow-x-auto">
         {/* Card 1 */}
-        <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300">
+        <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300" style={{ backgroundImage: "url(https://img.freepik.com/premium-photo/christmas-sale-podium-vector-banner-design_1108533-37017.jpg)", backgroundPosition: "center", backgroundSize: "cover" }}>
           <div className="p-4">
-            <div className="text-[#1f2533] font-bold text-[28px] text-center">Christmas Promotions</div>
+            <div className='flex justify-center w-full h-16'>
+              {/* <img src="https://img.freepik.com/premium-photo/christmas-sale-podium-vector-banner-design_1108533-37017.jpg" /> */}
+            </div>
+            {/* <div className="text-[#1f2533] font-bold text-[28px] text-center">Christmas Promotions</div> */}
           </div>
         </div>
-        
+
         {/* Card 2 */}
-        <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300">
+        <div className="flex-shrink-0 w-60  bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300" style={{ backgroundImage: "url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5hVGKMaw0g-SNcZ-AmYQLrgtFMsCDCVd-JA&s)", backgroundPosition: "right" }}>
           <div className="p-4">
-            <div className="text-[#1f2533] font-bold text-[28px] text-center">Summer Sale</div>
+            
+            {/* <div className="text-[#1f2533] font-bold text-[28px] text-center">Summer Sale</div> */}
           </div>
         </div>
-        
-        {/* Card 3 */}
-        <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300">
+        <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300" style={{ backgroundImage: "url(https://i.ytimg.com/vi/0__e7ef-vSs/maxresdefault.jpg)", backgroundSize: "cover",backgroundPosition: "center"}}>
           <div className="p-4">
-            <div className="text-[#1f2533] font-bold text-[28px] text-center">Recently Downloaded</div>
+            <div className="text-white font-bold text-[28px] text-center">Kids Collections</div>
           </div>
         </div>
       </div>
@@ -106,9 +111,10 @@ const RecentlyViewedProducts = () => {
         {/* Card 3 */}
         <div className="flex-shrink-0 w-60 bg-white border border-gray-400 rounded-lg shadow-md hover:border-gray-600 transition-all duration-300">
           <div className="p-4">
-            <div className="text-[#1f2533] font-bold text-[28px] text-center">Kids Collections</div>
+            <div className="text-[#1f2533] font-bold text-[28px] text-center">Recently Downloaded</div>
           </div>
         </div>
+        
       </div>
     </div>
     </>

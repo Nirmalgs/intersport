@@ -101,7 +101,7 @@ button:focus {
   stroke: #164196;
 }
 
-ul {
-  list-style: disc;
-  margin-left: 1em;
+.description ul {
+  list-style-type: disc;
+  
 }

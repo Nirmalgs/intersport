@@ -27,7 +27,7 @@ const ModelRender = (props) => {
   // useHelper(spotLight, SpotLightHelper, 'green');
   return (
     <>
-      <color attach="background" args={['#272727']} />
+      <color attach="background" args={['#fff']} />
       {/* <ambientLight color="red" intensity={1} /> */}
       {/* <AdidasShoe /> */}
       {props.random ? <Nike {...props} /> : <Nike {...props} />}
@@ -42,7 +42,8 @@ const ModelRender = (props) => {
         azimuthRotateSpeed={0.5}
         polarRotateSpeed={0.5}
         truckSpeed={10}
-        minZoom={0.1}
+        minZoom={1}
+        zoom={2}
         truck={0}
         polarAngle={Math.PI / 2.1}
       />
