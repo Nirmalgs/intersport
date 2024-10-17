@@ -7,12 +7,14 @@ import { FavoriteIcon } from './Icons/FavoriteIcon';
 import ProductCard from './ProductCard';
 import { wishlistAtom } from '@/atoms/wishlist';
 import { useAtom } from 'jotai';
-import Promotions from './Promotions';
+import { filterAtom } from '@/atoms/filter';
 const ProductList = () => {
   const [productListItem, setProductListItem] = useState([]);
   const [activeProductId, setActiveProductId] = useState(null);
   const [wishlist, setWishlist] = useAtom(wishlistAtom);
-  const [viewMode, setViewMode] = useState('grid');
+  const [currentfilter] = useAtom(filterAtom);
+
+  const [viewMode, setViewMode] = useState('list');
 
   useEffect(() => {
     fetch('http://51.20.115.140/api/getProducts')
@@ -76,8 +78,12 @@ const ProductList = () => {
         </div>
       </div>
       <ul className="flex flex-wrap gap-[15px] productlist-container">
-        {productListItem?.data?.items.map((product) => (
-          <>
+        {productListItem?.data?.items.map((product, index) => {
+
+          if(currentfilter && currentfilter === 'womens' && index % 2 === 0 ) return null;
+          if(currentfilter && currentfilter === 'mens' && index % 2 === 1 ) return null;
+          return (<>
+            
             {viewMode === 'grid' && (
               <ProductCard isGrid={true} product={product} activeProductId={wishlist} handleProductClick={handleProductClick} />
             )}
@@ -85,8 +91,8 @@ const ProductList = () => {
                 <ProductCard isGrid={false} product={product} activeProductId={wishlist} handleProductClick={handleProductClick} />
 
             )}
-          </>
-        ))}
+          </>)
+})}
       </ul>
     </>
   );

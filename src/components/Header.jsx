@@ -4,11 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef, useState } from 'react';
+import Popup from './Popup';
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
     const buttonRef = useRef(null);
+    const ref = useRef()
 
     const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -24,8 +26,13 @@ const Header = () => {
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
+    const handleClick = () => {
+        ref.current.togglePopup();
+        setIsOpen(false);
+    }
   return (
     <header className="py-[15px]  shadow-xl">
+      <Popup ref={ref} bannerInfo={false} />
       <div className="xl:container mx-auto flex justify-between items-center">
         <div className="logo content-center">
           <Link href="/">
@@ -83,27 +90,27 @@ const Header = () => {
             >
               <ul class="py-1">
                 <li>
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <a onClick={handleClick} href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     My Lists
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <a onClick={handleClick} href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     Saved filters
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <a onClick={handleClick} href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     Saved Searches
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <a onClick={handleClick} href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     Intersport recommended list
                   </a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  <a onClick={handleClick} href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                     Downloaded list
                   </a>
                 </li>
